@@ -1,0 +1,25 @@
+\section{O Axioma da Extensão e os Conceitos Primitivos}\label{sec:axioma-extensao}
+
+Na abordagem puramente axiomática da Teoria dos Conjuntos (TC), os conceitos de \textbf{conjunto}, \textbf{pertinência} e \textbf{igualdade} desempenham papéis fundamentais na estruturação da teoria. O conceito de conjunto e a relação de pertinência são considerados primitivos, enquanto a igualdade é um símbolo lógico primitivo herdado da Lógica de Primeira Ordem (CQC), cujas propriedades são estabelecidas pelos princípios lógicos correspondentes. Adicionalmente, a TC é uma teoria pura, na qual todos os objetos do domínio são, por definição, conjuntos.
+
+A relação de pertinência entre dois conjuntos $x$ e $y$ é denotada por $x \in y$ (\textit{``$x$ pertence a $y$''}) e dizemos que $x$ é \textbf{elemento de $y$}, enquanto sua negação é representada por $x \notin y$. Analogamente, a igualdade é representada por $x = y$ (\textit{``$x$ é igual a $y$''}), tendo como negação a expressão $x \neq y$.
+
+Como o conceito de conjunto e a relação de pertinência são primitivos, eles não recebem definições formais explícitas na linguagem da teoria. Seu significado e comportamento são determinados indiretamente pelos axiomas que regem a relação entre os objetos do domínio. A igualdade, por sua vez, possui suas propriedades lógicas gerais estabelecidas pela lógica subjacente, mas sua relação com a pertinência é também condicionada pelos axiomas específicos da TC.
+
+O primeiro passo para estabelecer um critério de identidade entre conjuntos é dado pelo Axioma da Extensão, segundo o qual dois conjuntos que possuem exatamente os mesmos elementos são necessariamente iguais:
+
+\begin{axioma}[Extensão]\label{ax:extensao}
+Se dois conjuntos possuem exatamente os mesmos elementos, então são iguais. Formalmente,
+\begin{equation}\label{eq:A1}
+    \forall x \forall y \bigl[
+        \forall z (z \in x \leftrightarrow z \in y)
+        \rightarrow x = y
+    \bigr].
+\end{equation}
+\end{axioma}
+
+Note que a Fórmula~\eqref{eq:A1} expressa apenas uma das direções da caracterização usual da igualdade entre conjuntos: se dois conjuntos possuem exatamente os mesmos elementos, então são iguais. A direção inversa, isto é, a afirmação de que conjuntos iguais possuem os mesmos elementos, decorre dos princípios lógicos da igualdade, em particular de sua propriedade de substitutividade. Com efeito, se $x = y$, então, para qualquer conjunto $z$, vale $z \in x \leftrightarrow z \in y$. Portanto, em conjunto com os princípios lógicos da igualdade, o Axioma da Extensão permite concluir que dois conjuntos são iguais se, e somente se, possuem exatamente os mesmos elementos.
+
+A relevância desse axioma reside no fato de que sua afirmação não decorre apenas da lógica de primeira ordem com igualdade. Embora a lógica estabeleça as propriedades formais da igualdade, ela não exige, por si só, que dois objetos com os mesmos elementos sejam idênticos. Essa exigência é introduzida especificamente pelo Axioma da Extensão, que impõe uma condição fundamental à relação de pertinência: conjuntos que possuem exatamente os mesmos elementos devem ser identificados como um único conjunto. Como observa Halmos~\cite[p.~4]{halmos2001}, \textit{``[...] o axioma da extensão não é apenas uma propriedade logicamente necessária sobre a igualdade, mas uma propriedade não trivial sobre a pertinência. [...]''}, pois estabelece que a igualdade entre conjuntos é determinada exclusivamente pela coincidência de seus elementos.
+
+Dessa forma, as propriedades clássicas da igualdade — \textbf{reflexividade} ($x = x$), \textbf{simetria} ($x = y \rightarrow y = x$) e \textbf{transitividade} ($x = y \land y = z \rightarrow x = z$), atuam como infraestrutura lógica preexistente. O Axioma da Extensão completa esse quadro ao conectar diretamente essa estrutura lógica à relação primitiva de pertinência.

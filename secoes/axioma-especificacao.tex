@@ -1,0 +1,167 @@
+\section{O Esquema Axiomático da Especificação}
+\label{sec:axioma-separacao}
+
+Antes de apresentarmos o Esquema Axiomático da Especificação, é conveniente formalizarmos a relação de inclusão entre conjuntos, uma vez que o axioma a seguir pressupõe essa noção e a utiliza de modo essencial em sua caracterização.
+
+\begin{definicao}[Inclusão e Subconjunto]
+\label{def:inclusao}
+Um conjunto $x$ é chamado de \textbf{subconjunto} de um conjunto $y$ (ou dito estar contido em $y$) se, e somente se, todos os elementos de $x$ também forem elementos de $y$.
+\begin{equation}\label{eq:inclusao}
+    x \subseteq y \leftrightarrow \forall z \bigl(z \in x \rightarrow z \in y\bigr).
+\end{equation}
+\end{definicao}
+
+Lemos a notação $x \subseteq y$ como \textit{``$x$ está contido em $y$''}, \textit{``$x$ é subconjunto de $y$''} ou \textit{``$x$ é parte de $y$''}. Quando $x$ não é subconjunto de $y$ — isto é, quando existe ao menos um elemento de $x$ que não pertence a $y$ —, escrevemos $x \nsubseteq y$. A relação expressa na Equação~\eqref{eq:inclusao} pode ser escrita, na direção oposta, como $y \supseteq x$, lida como \textit{``$y$ contém $x$''}; sua negação é representada por $y \nsupseteq x$.
+
+Quando um conjunto $x$ é subconjunto de $y$, mas não é igual a $y$, dizemos que $x$ é um \textbf{subconjunto próprio} de $y$ (ou que $x$ está contido propriamente em $y$):
+\begin{equation}\label{eq:subconjunto-proprio}
+    x \subsetneq y \leftrightarrow (x \subseteq y \land x \neq y).
+\end{equation}
+
+Vale destacar que há uma variação de convenções na literatura matemática quanto ao símbolo de inclusão. Na notação moderna e predominante em Teoria dos Conjuntos (adotada neste trabalho), utiliza-se $\subseteq$ para a inclusão ampla, de modo que vale a disjunção
+\begin{equation*}
+    x \subseteq y \;\leftrightarrow\; (x \subsetneq y \lor x = y).
+\end{equation*}
+Em contrapartida, alguns autores clássicos (como Halmos) utilizam $\subset$ para indicar a inclusão ampla, reservando $\subsetneq$ para a inclusão estrita; em outros textos, $\subset$ designa justamente a inclusão estrita. Como o símbolo $\subset$ é ambíguo na literatura, evitamo-lo neste trabalho em favor das notações $\subseteq$ e $\subsetneq$.
+
+\begin{teorema}[Propriedades da Inclusão]
+\label{teo:propriedades-inclusao}
+A relação de inclusão entre conjuntos define uma ordem parcial ampla, satisfazendo as seguintes propriedades:
+\begin{itemize}
+    \item \textit{Reflexiva:} $\forall x\, (x \subseteq x)$;
+    \item \textit{Antissimétrica:} $\forall x\, \forall y\, [(x \subseteq y \land y \subseteq x) \rightarrow x = y]$;
+    \item \textit{Transitiva:} $\forall x\, \forall y\, \forall z\, [(x \subseteq y \land y \subseteq z) \rightarrow x \subseteq z]$.
+\end{itemize}
+\end{teorema}
+
+\begin{proof}
+\noindent\textit{(Reflexividade)} Para todo conjunto $x$ e todo elemento $z$, a implicação $z \in x \rightarrow z \in x$ é uma tautologia da lógica proposicional. Logo, $\forall z\, (z \in x \rightarrow z \in x)$ é verdadeira, o que, pela Definição~\ref{def:inclusao}, estabelece $x \subseteq x$.
+
+\medskip
+\noindent\textit{(Antissimetria)} Assumimos $x \subseteq y$ e $y \subseteq x$. Pela Definição~\ref{def:inclusao}, temos
+\begin{equation*}
+    \forall z\, (z \in x \rightarrow z \in y)
+    \;\land\;
+    \forall z\, (z \in y \rightarrow z \in x).
+\end{equation*}
+Pela distribuição do quantificador universal sobre a conjunção, obtemos
+\begin{equation*}
+    \forall z\, \bigl[(z \in x \rightarrow z \in y)
+        \land (z \in y \rightarrow z \in x)\bigr].
+\end{equation*}
+Pela equivalência tautológica $(P \rightarrow Q) \land (Q \rightarrow P) \equiv (P \leftrightarrow Q)$, derivamos $\forall z\, (z \in x \leftrightarrow z \in y)$. Pelo Axioma da Extensão, concluímos que $x = y$.
+
+\medskip
+\noindent\textit{(Transitividade)} Suponha $x \subseteq y$ e $y \subseteq z$. Pela Definição~\ref{def:inclusao},
+\begin{equation*}
+    \forall w\, (w \in x \rightarrow w \in y)
+    \;\land\;
+    \forall w\, (w \in y \rightarrow w \in z).
+\end{equation*}
+Unificando sob um único quantificador universal, temos
+\begin{equation*}
+    \forall w\, \bigl[(w \in x \rightarrow w \in y)
+        \land (w \in y \rightarrow w \in z)\bigr].
+\end{equation*}
+Pelo silogismo hipotético da lógica proposicional, $[(P \rightarrow Q) \land (Q \rightarrow R)] \rightarrow (P \rightarrow R)$, deduzimos $\forall w\, (w \in x \rightarrow w \in z)$. Pela Definição~\ref{def:inclusao}, concluímos que $x \subseteq z$.
+\end{proof}
+
+Com a relação de inclusão devidamente formalizada, podemos enunciar o axioma propriamente dito. Recorde que, na lógica de primeira ordem, assume-se que o domínio de discurso é não vazio; assim, existe ao menos um conjunto no universo, o que legitima o uso do Esquema da Separação a seguir.
+
+\begin{axioma}[Especificação]
+\label{ax:separacao}
+Para cada conjunto $x$ e para cada fórmula bem formada $\varphi(z)$ na linguagem da teoria, existe um conjunto $y$ cujos elementos são precisamente os elementos $z \in x$ que satisfazem a propriedade $\varphi(z)$. Formalmente,
+\begin{equation}\label{eq:axioma-separacao}
+    \forall x\, \exists y\, \forall z\,
+        \bigl[\, z \in y \;\leftrightarrow\;
+            (z \in x \land \varphi(z)) \,\bigr].
+\end{equation}
+\end{axioma}
+
+Do ponto de vista da Lógica de Primeira Ordem, a Equação~\eqref{eq:axioma-separacao} não representa um único axioma, mas sim um \textbf{esquema axiomático}: uma coleção infinitamente numerável de axiomas, obtida ao instanciar a fórmula $\varphi$ por qualquer condição sintaticamente válida. Tendo como única restrição indispensável que a variável $y$ não ocorra livre em $\varphi$, impedindo definições autorreferenciais na própria sintaxe da linguagem. Além disso, pela Definição~\ref{def:inclusao}, a estrutura do Esquema da Separação garante inerentemente que o conjunto resultante $y$ é um subconjunto de $x$, isto é, $y \subseteq x$.
+
+Assim como o Axioma da Extensão estabelece um critério de identidade entre conjuntos, o Esquema da Separação estabelece um critério de \emph{existência} de subconjuntos: ele permite extrair, de um conjunto já dado, um novo conjunto determinado por uma propriedade arbitrária. Note, contudo, que o esquema não autoriza a formação de um conjunto a partir de uma propriedade qualquer tomada isoladamente — ele exige sempre um conjunto de referência $x$ do qual os elementos são separados. Essa restrição é precisamente o que impede a derivação de paradoxos como o de Russell, como veremos adiante.
+
+\begin{teorema}[Unicidade da Separação]
+\label{teo:unicidade-separacao}
+O conjunto $y$ obtido pelo Esquema Axiomático da Separação a partir de um conjunto $x$ e de uma propriedade $\varphi$ é único.
+\end{teorema}
+
+\begin{proof}
+O Esquema da Separação assegura a existência de $y$. Para provar a unicidade, suponha que existam dois conjuntos, $y_1$ e $y_2$, satisfazendo a condição para um mesmo conjunto $x$ e uma mesma fórmula $\varphi$. Então, para todo $z$,
+\begin{equation*}
+    z \in y_1 \leftrightarrow (z \in x \land \varphi(z))
+    \quad \text{e} \quad
+    z \in y_2 \leftrightarrow (z \in x \land \varphi(z)).
+\end{equation*}
+Pela transitividade e simetria da equivalência lógica ($\leftrightarrow$), deduzimos $\forall z\, (z \in y_1 \leftrightarrow z \in y_2)$. Pelo Axioma da Extensão, concluímos que $y_1 = y_2$.
+\end{proof}
+
+Garantida a unicidade pelo Axioma da Extensão, torna-se legítimo introduzir a notação formal por compreensão restrita:
+\begin{equation*}
+    y = \{z \in x \mid \varphi(z)\}.
+\end{equation*}
+
+A seguir, apresentamos duas aplicações fundamentais do Esquema da Separação, que ilustram tanto o seu poder quanto o seu papel na prevenção de paradoxos.
+
+\subsection{Exemplo 1: Existência e Unicidade do Conjunto Vazio}
+\label{sec:conjunto-vazio}
+
+Garantida a existência de ao menos um conjunto no universo de discurso, o Esquema da Separação permite provar a existência de um conjunto que não possui elementos.
+
+\begin{teorema}[Existência e Unicidade do Conjunto Vazio]
+\label{teo:conjunto-vazio}
+Existe um único conjunto que não possui elementos.
+\end{teorema}
+
+\begin{proof}
+Seja $x$ um conjunto qualquer, cuja existência é garantida pelo fato de o domínio de discurso da lógica de primeira ordem ser não vazio. Escolhemos como fórmula a contradição lógica $\varphi(z) \equiv z \neq z$. Aplicando o Esquema da Separação ao conjunto $x$ com a fórmula $\varphi$, obtemos a existência de um conjunto $y$ tal que
+\begin{equation*}
+    \forall z\, \bigl[z \in y \leftrightarrow (z \in x \land z \neq z)\bigr].
+\end{equation*}
+Como $z \neq z$ é uma falsidade tautológica para todo $z$, a conjunção $(z \in x \land z \neq z)$ é sempre falsa. Logo, a proposição $z \in y$ é falsa para qualquer $z$, o que implica $\forall z\, (z \notin y)$. A unicidade de $y$ decorre diretamente do Teorema~\ref{teo:unicidade-separacao}.
+\end{proof}
+
+Pelo Teorema~\ref{teo:conjunto-vazio}, o conjunto sem elementos é único. Devido à sua relevância fundamental na teoria, ele recebe um símbolo próprio: $\emptyset$ (ou simplesmente $\{\}$).
+
+Um resultado imediato sobre o conjunto vazio é que ele está contido em qualquer conjunto do domínio.
+
+\begin{teorema}[Vacuidade da Inclusão do Conjunto Vazio]
+\label{teo:vacuidade}
+Qualquer que seja o conjunto $x$, o conjunto vazio é subconjunto de $x$.
+\begin{equation}\label{eq:vacuidade}
+    \forall x\, (\emptyset \subseteq x).
+\end{equation}
+\end{teorema}
+
+\begin{proof}
+Suponha, por contradição, que exista algum conjunto $x$ tal que $\emptyset \nsubseteq x$. Pela negação da Definição~\ref{def:inclusao}, isto implica que deve existir ao menos um objeto $z$ tal que $z \in \emptyset$ e $z \notin x$. No entanto, pela definição do conjunto vazio, a proposição $z \in \emptyset$ é falsa para todo $z$, o que contradiz a existência desse elemento. Portanto, a negação é falsa, concluindo-se que $\emptyset \subseteq x$ para todo conjunto $x$.
+\end{proof}
+
+\subsection{Exemplo 2: Inexistência do Conjunto Universo}
+\label{sec:inexistencia-conjunto-universo}
+
+Uma das consequências mais marcantes do Esquema da Separação é que ele impede a existência de um conjunto que contenha todos os objetos do universo.
+
+\begin{teorema}[Inexistência do Conjunto Universo]
+\label{teo:inexistencia-conjunto-universo}
+Não existe um conjunto universo, isto é, não existe um conjunto $V$ tal que todo conjunto pertença a $V$.
+\end{teorema}
+
+\begin{proof}
+Suponha, por contradição, que exista um conjunto universo $V$, ou seja, um conjunto tal que $\forall z\, (z \in V)$.
+
+Aplicamos o Esquema da Separação ao conjunto $V$ utilizando a fórmula $\varphi(z) \equiv z \notin z$. Isto nos dá a existência de um conjunto $y$ definido por
+\begin{equation*}
+    y = \{z \in V \mid z \notin z\}.
+\end{equation*}
+Por construção, para todo $z$, temos $z \in y \leftrightarrow (z \in V \land z \notin z)$. Como assumimos que $V$ é o conjunto universo, a condição $z \in V$ é verdadeira para todo $z$; pela tautologia $(\text{Verdadeiro} \land P) \equiv P$, a equivalência simplifica-se para
+\begin{equation*}
+    \forall z\, (z \in y \leftrightarrow z \notin z).
+\end{equation*}
+Como $y$ é ele próprio um conjunto e $V$ contém todos os conjuntos, $y$ está no domínio de quantificação da variável $z$. Podemos, portanto, instanciar $z := y$, obtendo
+\begin{equation*}
+    y \in y \leftrightarrow y \notin y,
+\end{equation*}
+o que é uma contradição lógica da forma $P \leftrightarrow \neg P$. Pelo método de redução ao absurdo, concluímos que a premissa de que $V$ existe é falsa. Portanto, não existe o conjunto de todos os conjuntos.
+\end{proof}

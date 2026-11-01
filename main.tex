@@ -1,0 +1,158 @@
+% CLASSE DO DOCUMENTO
+% ======================================================================================================================
+% Define a classe abntex2, baseada nas normas de formatação
+% de trabalhos acadêmicos da ABNT.
+%
+% Opções:
+%   12pt     : tamanho da fonte principal do documento;
+%   article  : configura o documento no formato de artigo;
+%   oneside  : imprime o documento apenas em um lado da folha;
+%   a4paper  : define o tamanho do papel como A4;
+%   english  : carrega suporte ao idioma inglês;
+%   brazil   : define o português brasileiro como idioma principal, conforme a configuração da classe.
+\documentclass[
+    12pt,
+    article,
+    oneside,
+    a4paper,
+    english,
+    brazil
+]{abntex2}
+
+
+% PACOTES DE TIPOGRAFIA E FORMATAÇÃO
+% ======================================================================================================================
+% Utiliza a família de fontes Latin Modern, uma versão aprimorada das fontes Computer Modern tradicionais do LaTeX.
+\usepackage{lmodern}
+% Melhora o espaçamento entre caracteres e palavras, contribuindo para uma composição tipográfica mais uniforme.
+\usepackage{microtype}
+% Aplica recuo de parágrafo também ao primeiro parágrafo após títulos de seções e outros elementos.
+\usepackage{indentfirst}
+
+% PACOTES PARA MATEMÁTICA
+% ======================================================================================================================
+% Disponibiliza ambientes e comandos matemáticos avançados, incluindo equações, alinhamentos e expressões matemáticas.
+\usepackage{amsmath}
+% Disponibiliza fontes para conjuntos e símbolos matemáticos em negrito, caligráficos e outros estilos.
+\usepackage{amsfonts}
+% Acrescenta símbolos matemáticos adicionais, como símbolos de relações, operadores e conjuntos numéricos.
+\usepackage{amssymb}
+% Complementa o amsmath com recursos matemáticos adicionais, como comandos para delimitação e construção de expressões.
+\usepackage{mathtools}
+% Permite definir ambientes para axiomas, definições, teoremas, lemas, proposições, corolários e observações.
+\usepackage{amsthm}
+
+% CITAÇÕES E REFERÊNCIAS BIBLIOGRÁFICAS
+% ======================================================================================================================
+% Configura o sistema de citações da classe abntex2. A opção alf utiliza o sistema autor-data, de acordo com o estilo
+% bibliográfico correspondente da ABNT.
+\usepackage[alf]{abntex2cite}
+
+% HIPERLINKS E METADADOS DO ARQUIVO PDF
+% ======================================================================================================================
+% O pacote hyperref cria links clicáveis no PDF para referências cruzadas, citações, URLs e outros elementos.
+%
+% O abntex2 pode carregar esse pacote internamente. Por isso, antes de carregá-lo explicitamente, verifique se ele já
+% foi carregado pela classe ou por outro pacote. Caso já esteja disponível, não é necessário carregá-lo novamente.
+\usepackage{hyperref}
+
+% Configura a aparência dos links e os metadados do PDF.
+\hypersetup{
+    % Ativa a exibição dos links com cores, sem molduras.
+    colorlinks = true,
+    % Mantém pretos os links internos, como os de seções e referências cruzadas.
+    linkcolor  = black,
+    % Mantém pretos os links associados às citações.
+    citecolor  = black,
+    % Exibe URLs em azul, facilitando sua identificação.
+    urlcolor   = blue,
+    % Define o título exibido nas propriedades do PDF.
+    pdftitle   = {Fundamentos da Teoria Axiomática dos Conjuntos},
+    % Identifica a autoria do documento nos metadados.
+    pdfauthor  = {Danilo Marto de Carvalho},
+    % Informa o assunto principal do documento.
+    pdfsubject = {Teoria dos Conjuntos},
+    % Registra palavras-chave para identificação do conteúdo.
+    pdfkeywords = {axiomas, ZF, teoria dos conjuntos, lógica matemática}
+}
+
+% AMBIENTES PARA AXIOMAS E DEFINIÇÕES
+% ======================================================================================================================
+% O estilo definition utiliza, em geral, títulos em negrito e corpo do texto em fonte romana.
+\theoremstyle{definition}
+% Cria o ambiente axioma, numerado por seção. Exemplo: Axioma 1.1, Axioma 1.2, Axioma 2.1 etc.
+\newtheorem{axioma}{Axioma}[section]
+% Cria o ambiente definicao, também numerado por seção.
+\newtheorem{definicao}{Definição}[section]
+
+% AMBIENTES PARA RESULTADOS MATEMÁTICOS
+% ======================================================================================================================
+% O estilo plain utiliza, em geral, título em negrito e corpo do texto em itálico, conforme a convenção tradicional de
+% apresentação de resultados matemáticos.
+\theoremstyle{plain}
+% Cria o ambiente teorema, cuja numeração é reiniciada a cada seção.
+\newtheorem{teorema}{Teorema}[section]
+% O lema compartilha o contador dos teoremas. Assim, teoremas, lemas, corolários e proposições formam uma sequência
+% única de numeração dentro de cada seção.
+\newtheorem{lema}[teorema]{Lema}
+% O corolário compartilha o contador dos teoremas.
+\newtheorem{corolario}[teorema]{Corolário}
+% A proposição também compartilha o contador dos teoremas.
+\newtheorem{proposicao}[teorema]{Proposição}
+
+% AMBIENTE PARA EXEMPLOS
+% ======================================================================================================================
+% Retorna ao estilo definition para que os exemplos sejam apresentados com título destacado e corpo romano.
+\theoremstyle{definition}
+% Cria o ambiente exemplo, numerado por seção.
+\newtheorem{exemplo}{Exemplo}[section]
+
+% AMBIENTE PARA OBSERVAÇÕES
+% ======================================================================================================================
+% O estilo remark é apropriado para observações e comentários, geralmente apresentados com corpo em fonte romana.
+\theoremstyle{remark}
+% Cria o ambiente observacao, numerado por seção.
+\newtheorem{observacao}{Observação}[section]
+
+% ELEMENTOS DE IDENTIFICAÇÃO DO DOCUMENTO
+% ======================================================================================================================
+% Define o título principal do artigo.
+\titulo{Fundamentos da Teoria dos Conjuntos}
+% Define o título em outro idioma.
+\tituloestrangeiro{Fundamentals of Set Theory}
+% Define o autor e acrescenta uma nota de rodapé com o endereço de e-mail para contato.
+\autor{
+    Danilo Marto de Carvalho%
+    \thanks{E-mail: \texttt{carvalho.dm@proton.me}}
+}
+% Informa o local associado ao documento.
+\local{Brasil}
+% Utiliza a data atual de compilação.
+\date{\today}
+
+% INÍCIO DO DOCUMENTO
+% ======================================================================================================================
+
+\begin{document}
+% Gera o título a partir das informações declaradas anteriormente, como título, autor e data.
+\maketitle
+
+% INCLUSÃO DOS CAPÍTULOS OU SEÇÕES DO ARTIGO
+% ======================================================================================================================
+
+% Inclui o conteúdo do arquivo referente ao Axioma da Extensão
+\input{secoes/axioma-extensao}
+% Inclui o conteúdo do arquivo referente ao Axioma da Separação.
+\input{secoes/axioma-especificacao}
+
+% REFERÊNCIAS BIBLIOGRÁFICAS
+% ======================================================================================================================
+
+% Define o estilo bibliográfico autor-data compatível com o pacote abntex2cite.
+\bibliographystyle{abntex2-alf}
+% Indica o arquivo que contém as entradas bibliográficas.
+\bibliography{referencias}
+
+% FIM DO DOCUMENTO
+% ======================================================================================================================
+\end{document}
